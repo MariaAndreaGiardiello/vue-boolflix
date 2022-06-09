@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: FooterComponents,
+    name: 'FooterComponents',
 }
 </script>
 
