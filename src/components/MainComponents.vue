@@ -1,8 +1,9 @@
 <template>
   <main>
-      <div class="film-list">
-          <p v-for="(films, index) in films" :key="index">{{films.title}}</p>
-      </div>
+      <form @submit.prevent="searching">
+            <input type="text" v-model="searchText">
+            <button type="button">Search</button>
+      </form>
   </main>
 </template>
 
@@ -12,22 +13,24 @@ export default {
     name: 'MainComponents',
     data() {
         return {
-            films: [],
+            searchText: '',
         }
     },
-    created() {
-        axios.get('https://api.themoviedb.org/3/search/movie', {
+    methods: {
+        searching(){
+            axios.get('https://api.themoviedb.org/3/search/movie', {
             params: {
                 api_key: '26482de69908ad7123b259cea927ba24',
-                query: 'ritorno',
+                query: this.searchText,
                 language: 'it-IT',
             }
         }).then((response) => {
-            this.films = response.data.results;
+            console.log(response.data.results);
         }).catch((error) => {
             console.log(error);
         })
-    },
+        }
+    }
 }
 </script>
 
