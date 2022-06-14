@@ -4,15 +4,25 @@
             <input type="text" v-model="searchText">
             <button type="button">Search</button>
       </form>
+      <ul>
+        <li v-for="movie in data.movies" :key="movie.id">
+            <h3>{{movie.title}}</h3>
+            <h5>{{movie.original_title}}</h5>
+            <h5>{{movie.original_language}}</h5>
+            <h5>{{movie.vote_average}}</h5>
+        </li>
+      </ul>
   </main>
 </template>
 
 <script>
 import axios from 'axios';
+import data from '../components/shared/data';
 export default {
     name: 'MainComponents',
     data() {
         return {
+            data,
             searchText: '',
         }
     },
@@ -25,7 +35,7 @@ export default {
                 language: 'it-IT',
             }
         }).then((response) => {
-            console.log(response.data.results);
+            data.movies = response.data.results;
         }).catch((error) => {
             console.log(error);
         })
