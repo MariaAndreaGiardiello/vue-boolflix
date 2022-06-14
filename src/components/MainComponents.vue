@@ -8,8 +8,11 @@
         <li v-for="movie in data.movies" :key="movie.id">
             <h3>{{movie.title}}</h3>
             <h5>{{movie.original_title}}</h5>
-            <h5>{{movie.original_language}}</h5>
             <h5>{{movie.vote_average}}</h5>
+            <p>
+                <img v-if="existFlag(movie.original_language)" :src="require(`../assets/flags/${movie.original_language}.png`)">
+                <img v-else src="../assets/flags/peace.png">
+            </p>
         </li>
       </ul>
   </main>
@@ -24,6 +27,18 @@ export default {
         return {
             data,
             searchText: '',
+            flagsAvaible: [
+                'en',
+                'peace',
+                'chi',
+                'ja',
+                'it',
+                'pt',
+                'es',
+                'de',
+                'fr',
+            ]
+
         }
     },
     methods: {
@@ -39,6 +54,10 @@ export default {
         }).catch((error) => {
             console.log(error);
         })
+        },
+
+        existFlag(lang) {
+            return this.flagsAvaible.includes(lang);
         }
     }
 }
