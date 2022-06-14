@@ -15,6 +15,17 @@
             </p>
         </li>
       </ul>
+        <ul>
+            <li v-for="tv in data.tv" :key="tv.id">
+                <h3>{{tv.name}}</h3>
+                <h5>{{tv.original_name}}</h5>
+                <h5>{{tv.vote_average}}</h5>
+                <p>
+                    <img v-if="existFlag(tv.original_language)" :src="require(`../assets/flags/${tv.original_language}.png`)">
+                    <img v-else src="../assets/flags/peace.png">
+                </p>
+            </li>
+        </ul>
   </main>
 </template>
 
@@ -49,13 +60,24 @@ export default {
                 query: this.searchText,
                 language: 'it-IT',
             }
-        }).then((response) => {
-            data.movies = response.data.results;
-        }).catch((error) => {
-            console.log(error);
-        })
-        },
+            }).then((response) => {
+                data.movies = response.data.results;
+            }).catch((error) => {
+                console.log(error);
+            })
 
+            axios.get('https://api.themoviedb.org/3/search/tv' , {
+                params: {
+                    api_key: '26482de69908ad7123b259cea927ba24',
+                    query: this.searchText,
+                    language: 'it-IT',
+                }
+            }).then((response) => {
+                data.tv = response.data.results;
+            }).catch((error) => {
+                console.log(error);
+            })
+        },
         existFlag(lang) {
             return this.flagsAvaible.includes(lang);
         }
