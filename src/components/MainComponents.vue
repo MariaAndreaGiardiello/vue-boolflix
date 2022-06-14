@@ -6,6 +6,7 @@
       </form>
       <ul>
         <li v-for="movie in data.movies" :key="movie.id">
+            <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="">
             <h3>{{movie.title}}</h3>
             <h5>{{movie.original_title}}</h5>
             <h5>{{movie.vote_average}}</h5>
@@ -17,6 +18,7 @@
       </ul>
         <ul>
             <li v-for="tv in data.tv" :key="tv.id">
+                <img :src="`https://image.tmdb.org/t/p/w500${tv.poster_path}`" alt="">
                 <h3>{{tv.name}}</h3>
                 <h5>{{tv.original_name}}</h5>
                 <h5>{{tv.vote_average}}</h5>
